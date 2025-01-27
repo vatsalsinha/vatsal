@@ -274,13 +274,19 @@
       width: 100%;
       padding-bottom: 15px; } }
 
-.about-me-inner {
-  display: flex;
-  justify-content: space-between; }
-  @media (max-width: 992px) {
-    .about-me-inner {
-      flex-direction: column;
-      align-items: center; } }
+      .about-me-inner {
+        display: grid; 
+        grid-template-columns: 1fr 1fr; /* Splits content into two columns for better layout */
+        gap: 20px; /* Adds spacing between columns */
+        align-items: start;
+    }
+    
+    @media (max-width: 768px) {
+        .about-me-inner {
+            grid-template-columns: 1fr; /* Switch to single column on smaller screens */
+            gap: 10px;
+        }
+    }
 
 .about-me-slider {
   position: relative; }
@@ -358,7 +364,6 @@
       width: 250px; } }
 
 .about-me__text {
-  width: 44%;
   margin-right: 80px;
   text-align: center; }
   .about-me__text .universal-h2 {
@@ -382,8 +387,9 @@
     font-size: 25px;
     color: #c18f59; }
   .about-me__text .p-white {
-    margin-bottom: 0;
-    color: #fff; }
+    text-align: left; /* Aligns text to the left */
+    line-height: 1.6; /* Improves readability with proper line spacing */
+}
   @media (max-width: 1250px) {
     .about-me__text {
       width: 48%;
