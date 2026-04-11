@@ -1,302 +1,711 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/slick.css">
-	<title>Vatsal Sinha</title>
-	<script src="https://use.fontawesome.com/a17e3780d9.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vatsal Sinha — Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── Light theme ── */
+    :root, [data-theme="light"] {
+      --bg:              #F7F6F2;
+      --bg-card:         #FFFFFF;
+      --bg-nav:          rgba(247,246,242,0.88);
+      --text:            #1A1A18;
+      --text-muted:      #6B6B66;
+      --text-faint:      #A8A8A2;
+      --border:          rgba(26,26,24,0.10);
+      --border-med:      rgba(26,26,24,0.18);
+      --tag-bg:          #EFEFEB;
+      --accent-green:    #0F6E56;
+      --accent-green-bg: #E1F5EE;
+      --accent-blue:     #185FA5;
+      --accent-blue-bg:  #E6F1FB;
+      --accent-purple-bg:#EEEDFE;
+      --accent-amber-bg: #FAEEDA;
+      --accent-teal-bg:  #E1F5EE;
+      --accent-coral-bg: #FAECE7;
+      --toggle-track:    #D3D1C7;
+    }
+
+    /* ── Dark theme ── */
+    [data-theme="dark"] {
+      --bg:              #141412;
+      --bg-card:         #1E1E1B;
+      --bg-nav:          rgba(20,20,18,0.92);
+      --text:            #EEEEE8;
+      --text-muted:      #9A9A92;
+      --text-faint:      #5C5C56;
+      --border:          rgba(238,238,232,0.08);
+      --border-med:      rgba(238,238,232,0.15);
+      --tag-bg:          #2A2A26;
+      --accent-green:    #3DC99A;
+      --accent-green-bg: #0B3328;
+      --accent-blue:     #6AABF0;
+      --accent-blue-bg:  #0C2440;
+      --accent-purple-bg:#1E1A3D;
+      --accent-amber-bg: #2C1E08;
+      --accent-teal-bg:  #0B3328;
+      --accent-coral-bg: #2C1208;
+      --toggle-track:    #3A3A36;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Theme toggle pill ── */
+    .theme-toggle {
+      display: flex; align-items: center;
+      width: 44px; height: 24px;
+      border-radius: 999px;
+      background: var(--toggle-track);
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.25s;
+      border: none;
+      padding: 0;
+    }
+    [data-theme="dark"] .theme-toggle { background: #534AB7; }
+    .theme-toggle-thumb {
+      position: absolute;
+      left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.25s, background 0.25s;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      pointer-events: none;
+    }
+    [data-theme="dark"] .theme-toggle-thumb {
+      transform: translateX(20px);
+      background: #EEEEE8;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-nav);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 58px;
+      gap: 1rem;
+      transition: background 0.25s;
+    }
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px; font-weight: 500;
+      white-space: nowrap;
+    }
+    .nav-center { display: flex; gap: 2rem; }
+    .nav-center a { font-size: 13px; color: var(--text-muted); transition: color 0.15s; }
+    .nav-center a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; font-weight: 500;
+      padding: 7px 14px;
+      background: var(--text); color: var(--bg);
+      border-radius: 6px;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { opacity: 0.8; }
+    .burger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+      background: none; border: none;
+    }
+    .burger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: all 0.22s ease;
+    }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── Mobile drawer ── */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 58px; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      z-index: 99;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      overflow-y: auto;
+      transition: background 0.25s;
+    }
+    .mobile-drawer.open { display: block; }
+    .mobile-drawer a {
+      display: block; font-size: 26px; font-weight: 300;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s;
+    }
+    .mobile-drawer a:hover { color: var(--text-muted); }
+    .drawer-footer {
+      margin-top: 2rem;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .drawer-footer span { font-size: 13px; color: var(--text-muted); }
+
+    /* ── Layout ── */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 5rem 0; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 2rem;
+    }
+    hr { border: none; border-top: 1px solid var(--border); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 88vh; display: flex; align-items: center;
+      padding: 5rem 0 3rem;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 3.5rem; align-items: center; width: 100%;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 500;
+      background: var(--accent-green-bg); color: var(--accent-green);
+      padding: 5px 12px 5px 10px; border-radius: 20px;
+      margin-bottom: 1.5rem;
+      transition: background 0.25s, color 0.25s;
+    }
+    .hero-tag::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent-green); display: inline-block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.75); }
+    }
+    .hero-name {
+      font-size: clamp(44px, 8vw, 72px); font-weight: 300;
+      line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.25rem;
+    }
+    .hero-name strong { font-weight: 500; }
+    .hero-sub {
+      font-size: 17px; color: var(--text-muted);
+      line-height: 1.65; max-width: 460px;
+      margin-bottom: 2.25rem; font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      padding: 10px 20px; border-radius: 8px;
+      cursor: pointer; border: none;
+      transition: all 0.15s; display: inline-block;
+    }
+    .btn-dark { background: var(--text); color: var(--bg); }
+    .btn-dark:hover { opacity: 0.8; transform: translateY(-1px); }
+    .btn-light {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border-med);
+    }
+    .btn-light:hover { background: var(--bg-card); transform: translateY(-1px); }
+    .hero-avatar {
+      width: 190px; height: 190px; border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #CECBF6 0%, #9FE1CB 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Mono', monospace; font-size: 40px; font-weight: 500;
+      color: #3C3489; flex-shrink: 0;
+    }
+
+    /* ── Stats ── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1rem;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .stat-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 30px; font-weight: 500; letter-spacing: -1px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── Cards ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .card.wide { grid-column: span 2; }
+    .card h3 {
+      font-size: 11px; font-weight: 500; color: var(--text-faint);
+      text-transform: uppercase; letter-spacing: 1px;
+      font-family: 'DM Mono', monospace; margin-bottom: 0.75rem;
+    }
+    .card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 0.5rem; }
+    .tag {
+      font-size: 12px; padding: 4px 11px;
+      background: var(--tag-bg); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text-muted);
+      transition: background 0.25s;
+    }
+
+    /* ── Experience ── */
+    .exp-list { display: flex; flex-direction: column; gap: 8px; }
+    .exp-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 1rem;
+      transition: border-color 0.15s, background 0.25s;
+    }
+    .exp-item:hover { border-color: var(--border-med); }
+    .exp-company { font-size: 15px; font-weight: 500; }
+    .exp-role { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .exp-desc { font-size: 13px; color: var(--text-muted); margin-top: 10px; line-height: 1.65; font-weight: 300; }
+    .exp-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--text-faint);
+      white-space: nowrap; padding-top: 3px;
+    }
+
+    /* ── Projects ── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .project-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.15s, transform 0.15s, background 0.25s;
+    }
+    .project-card:hover { border-color: var(--border-med); transform: translateY(-2px); }
+    .project-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; transition: background 0.25s;
+    }
+    .project-card h3 { font-size: 14px; font-weight: 500; }
+    .project-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; flex: 1; font-weight: 300; }
+    .project-footer { display: flex; align-items: center; justify-content: flex-end; margin-top: 4px; }
+    .project-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--text-faint); transition: color 0.15s;
+    }
+    .project-link:hover { color: var(--text); }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tech-tag {
+      font-size: 11px; padding: 3px 8px; background: var(--tag-bg);
+      border-radius: 4px; color: var(--text-faint);
+      font-family: 'DM Mono', monospace; transition: background 0.25s;
+    }
+
+    /* ── Publication ── */
+    .pub-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.75rem;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .pub-badge {
+      display: inline-block; font-family: 'DM Mono', monospace;
+      font-size: 11px; font-weight: 500;
+      background: var(--accent-blue-bg); color: var(--accent-blue);
+      padding: 4px 10px; border-radius: 4px; margin-bottom: 1rem;
+      transition: background 0.25s, color 0.25s;
+    }
+    .pub-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 0.75rem; letter-spacing: -0.2px; }
+    .pub-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+    .pub-authors { margin-top: 1rem; font-size: 12px; color: var(--text-faint); font-family: 'DM Mono', monospace; }
+    .pub-doi { margin-top: 8px; font-size: 12px; }
+    .pub-doi a { color: var(--accent-blue); }
+    .pub-doi a:hover { text-decoration: underline; }
+
+    /* ── Contact ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .contact-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: 14px;
+      transition: border-color 0.15s, background 0.25s;
+    }
+    .contact-card:hover { border-color: var(--border-med); }
+    .contact-icon {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: var(--tag-bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0; transition: background 0.25s;
+    }
+    .contact-label { font-size: 11px; color: var(--text-faint); font-family: 'DM Mono', monospace; }
+    .contact-val { font-size: 13px; font-weight: 500; margin-top: 2px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem; text-align: center;
+      font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-faint);
+    }
+
+    /* ── Scroll fade ── */
+    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── Responsive: tablet ── */
+    @media (max-width: 768px) {
+      .nav-center { display: none; }
+      .nav-cta { display: none; }
+      .burger { display: flex; }
+
+      .hero { min-height: auto; padding: 3rem 0 2rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-avatar { width: 80px; height: 80px; font-size: 22px; border-radius: 12px; order: -1; }
+      .hero-name { font-size: clamp(36px, 10vw, 52px); letter-spacing: -1.5px; }
+      .hero-sub { font-size: 15px; }
+
+      .section { padding: 3rem 0; }
+
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-card:last-child { grid-column: span 2; }
+
+      .about-grid { grid-template-columns: 1fr; }
+      .card.wide { grid-column: span 1; }
+
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-date { order: -1; margin-bottom: 4px; }
+
+      .projects-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Responsive: phone ── */
+    @media (max-width: 420px) {
+      .container { padding: 0 1rem; }
+      nav { padding: 0 1rem; }
+      .hero-actions { flex-direction: column; }
+      .btn { text-align: center; }
+      .stats-row { grid-template-columns: 1fr; }
+      .stat-card:last-child { grid-column: span 1; }
+      .hero-name { font-size: 34px; }
+    }
+  </style>
 </head>
 <body>
 
-	<!-- Navigation -->
-	<nav class="site-navigation">
-		<div class="site-navigation-inner site-container">
-			<div></div>
-			<div class="main-navigation">
-				<ul class="main-navigation__ul">
-					<li><a href="#">Homepage</a></li>
-					<li><a href="Vatsal_CV_MS.pdf" target="_blank">Resume</a></li>
-					<li><a href = "https://vatsalsinha59.medium.com/" target="_blank">Blog</a></li>
-				</ul>
-			</div>
-			<div id="myBtn" class="burger-container" onclick="myFunction(this)">
-				<div class="bar1"></div>
-				<div class="bar2"></div>
-				<div class="bar3"></div>
-			</div>
-			<script>
-				function myFunction(x) {
-					x.classList.toggle("change");
-				}
-			</script>
+  <nav>
+    <span class="nav-logo">vatsal_sinha</span>
+    <div class="nav-center">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <div class="theme-toggle-thumb" id="toggle-thumb">☀️</div>
+      </button>
+      <a href="Vatsal_CV_MS.pdf" target="_blank" class="nav-cta">resume ↗</a>
+      <button class="burger" id="burger-btn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-		</div>
-	</nav>
-	<!-- Navigation end -->
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <a href="#about"      onclick="closeDrawer()">About</a>
+    <a href="#experience" onclick="closeDrawer()">Experience</a>
+    <a href="#projects"   onclick="closeDrawer()">Projects</a>
+    <a href="#contact"    onclick="closeDrawer()">Contact</a>
+    <a href="Vatsal_CV_MS.pdf" target="_blank" onclick="closeDrawer()">Resume ↗</a>
+    <div class="drawer-footer">
+      <span>Dark mode</span>
+      <button class="theme-toggle" id="theme-toggle-mobile" aria-label="Toggle dark mode">
+        <div class="theme-toggle-thumb" id="toggle-thumb-mobile">☀️</div>
+      </button>
+    </div>
+  </div>
 
-	<!-- Top banner -->
-	<section class="fh5co-top-banner">
-		<div class="top-banner__inner site-container">
-			<div class="top-banner__image">
-				<img src="./images/vatsal2.png" alt="author image" class="vs">
-			</div>
-			<div class="top-banner__text">
-				<div class="top-banner__text-up">
-					<span class="brand-span">Hello! I'm</span>
-					<h2 class="top-banner__h2">Vatsal</h2>
-				</div>
-				<div class="top-banner__text-down">
-					<h2 class="top-banner__h2">Sinha</h2>
-					<span class="brand-span">Student, Developer</span>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Top banner end -->
+  <!-- Hero -->
+  <div class="container">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-tag">Open to new opportunities</div>
+          <h1 class="hero-name">Vatsal<br><strong>Sinha</strong></h1>
+          <p class="hero-sub">Software engineer passionate about AI/ML and full-stack development. Currently at Akamai Technologies, building secure enterprise infrastructure.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-dark">Get in touch</a>
+            <a href="#projects" class="btn btn-light">View work</a>
+            <a href="Vatsal_CV_MS.pdf" target="_blank" class="btn btn-light">Resume ↗</a>
+          </div>
+        </div>
+        <div class="hero-avatar">
+               <img src="./images/vatsal2.png" alt="Vatsal Sinha" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      </div>
+    </section>
+  </div>
 
-	<!-- About me -->
-	<section class="fh5co-about-me">
-		<div class="about-me-inner site-container">
-			<article class="portfolio-wrapper">
-				<div class="portfolio__img">
-					<img src="./images/vatsal.png" class="about-me__profile" alt="about me profile picture" style="object-fit: cover;">
-				</div>
-				<div class="portfolio__bottom">
-					<div class="portfolio__name">
-						<span>V</span>
-						<h2 class="universal-h2">atsal Sinha</h2>
-					</div>
-					<p>I am currently working at Akamai Technologies as a Software Engineer, Bengaluru.</p>
-				</div>
-			</article>
-			<div class="about-me__text">
-				<div class="about-me-single-slide">
-					<h2 class="universal-h2 universal-h2-bckg">About Me</h2>
-					<p class="p-white text-align-left">
-						<span>I</span> have a strong passion for <strong>Artificial Intelligence, Machine Learning, and full-stack development.</strong> 
-						I thrive on problem-solving challenges and constantly push myself to learn and grow. You can explore my progress on <a href="https://leetcode.com/vatsalsinha/">LeetCode</a>.
-					</p>
-					<p class="p-white text-align-left">
-						My goal is to solve real-world problems through innovative technology and contribute to impactful projects. I believe in practical, hands-on learning as the most effective way to master new skills.
-					</p>
-					<p class="p-white text-align-left">
-						Beyond the tech world, I have a deep appreciation for trekking, mountaineering, and cars—my love for cars knows no bounds!
-					</p>
-					<br />
-					<p class="p-white text-align-left">
-						My hobbies and interests:
-						<br /> • Travelling to discover new places and cultures
-						<br /> • Playing Squash/badminton
-						<br /> • Working out in the GYM
-						<br /> • Watching movies and binge-worthy TV series
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="about-me-bckg"></div>
-	</section>
-	
-	<!-- About me end -->
+  <hr>
 
-	<!-- Books and CD -->
-	<section class="fh5co-books">
-		<div class="site-container">
-			<h2 class="universal-h2 universal-h2-bckg">My work</h2>
-			<div class="books">
-				<div class="single-book">
-					<a href="#" class="single-book__img">
-						<img src="./images/tweet.png" alt="single book and cd" style="height: 200px; width: 200px; object-fit: cover;">
-						<div class="single-book_download">
-							<img src="./images/download.svg" alt="book image">
-						</div>
-					</a>
-					<h4 class="single-book__title">Image Classification website</h4>
-					<span class="single-book__price"> <a target="_blank" href = "https://github.com/vatsalsinha/imageclassification_keras_django_react_tensorflow">know more</a></span>
-					<!-- star rating -->
-	
-					<!-- star rating end -->
-				</div>
-				<div class="single-book">
-					<a href="#" class="single-book__img">
-						<img src="./images/tweet.png" alt="single book and cd" style="height: 200px; width: 200px; object-fit: cover;">
-						<div class="single-book_download">
-							<img src="./images/download.svg" alt="book image">
-						</div>
-					</a>
-					<h4 class="single-book__title">Twitter clone</h4>
-					<span class="single-book__price"> <a target="_blank" href = "https://github.com/vatsalsinha/tweetmE">know more</a></span>
-					<!-- star rating -->
-					
-					<!-- star rating end -->
-				</div>
-				<div class="single-book">
-					<a href="#" class="single-book__img">
-						<img src="./images/foodie.png" alt="single book and cd" style="height: 200px; width: 200px; object-fit: cover;">
-						<div class="single-book_download">
-							<img src="./images/download.svg" alt="book image">
-						</div>
-					</a>
-					<h4 class="single-book__title">Foodie</h4>
-					<span class="single-book__price"> <a target="_blank" href = "https://github.com/vatsalsinha/foodie">know more</a></span>
-				</div>
-				<div class="single-book">
-					<a href="#" class="single-book__img">
-						<img src="./images/self.jpeg" alt="single book and cd" style="height: 200px; width: 200px; object-fit: cover;">
-						<div class="single-book_download">
-							<img src="./images/download.svg" alt="book image">
-						</div>
-					</a>
-					<h4 class="single-book__title">Self Driving Car </h4>
-					<span class="single-book__price"> <a target="_blank" href= "https://github.com/vatsalsinha/Self-Driving-Car-Implementation-using-Reinforcement-Learning">know more</a></span>
-				</div>
-			</div>
-			<div class="books-brand-button">
-				<a target="_blank" href="https://github.com/vatsalsinha?tab=repositories" class="brand-button">View more</a>
-			</div>
-		</div>
-	</section>
-	<!-- Books and CD end -->
+  <!-- About -->
+  <div class="container">
+    <section class="section fade-in" id="about">
+      <p class="section-label">About</p>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">Years at Akamai</div></div>
+        <div class="stat-card"><div class="stat-num">700+</div><div class="stat-label">LeetCode solved</div></div>
+        <div class="stat-card"><div class="stat-num">1</div><div class="stat-label">Springer publication</div></div>
+      </div>
+      <div class="about-grid">
+        <div class="card wide">
+          <h3>Bio</h3>
+          <p>I'm a software engineer who loves building at the intersection of AI and full-stack development. I thrive on problem-solving and constantly push myself to learn. Beyond the keyboard, I'm an avid trekker, car enthusiast, and squash player. I believe in practical, hands-on learning as the most effective way to master new skills.</p>
+        </div>
+        <div class="card">
+          <h3>Skills</h3>
+          <div class="tags">
+            <span class="tag">C++</span><span class="tag">Python</span><span class="tag">React</span>
+            <span class="tag">TypeScript</span><span class="tag">Node.js / Express</span>
+            <span class="tag">Django / Flask</span><span class="tag">TensorFlow</span>
+            <span class="tag">PostgreSQL</span><span class="tag">REST APIs</span>
+            <span class="tag">CI/CD</span><span class="tag">HTML5 / CSS3</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Interests</h3>
+          <div class="tags">
+            <span class="tag">Trekking &amp; mountaineering</span><span class="tag">Cars</span>
+            <span class="tag">Squash</span><span class="tag">Badminton</span>
+            <span class="tag">Gym</span><span class="tag">Travel</span><span class="tag">Movies &amp; TV</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
+  <hr>
 
+  <!-- Experience -->
+  <div class="container">
+    <section class="section fade-in" id="experience">
+      <p class="section-label">Experience</p>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div>
+            <div class="exp-company">Akamai Technologies</div>
+            <div class="exp-role">Software Engineer · Bengaluru, KA</div>
+            <div class="exp-desc">Developing engineering solutions across Akamai teams. Automating CI/CD lifecycle and features of Enterprise Application Access — a platform providing secure remote access to enterprise applications.</div>
+          </div>
+          <div class="exp-date">Jan 2022 — Present</div>
+        </div>
+        <div class="exp-item">
+          <div>
+            <div class="exp-company">Kickhead Softwares Pvt. Ltd.</div>
+            <div class="exp-role">Software Engineering Intern · Bengaluru, KA</div>
+            <div class="exp-desc">Backend development on Python/Django. Integrated Stripe payment gateway to enable seamless international payments.</div>
+          </div>
+          <div class="exp-date">Jul 2020 — Sep 2020</div>
+        </div>
+        <div class="exp-item">
+          <div>
+            <div class="exp-company">PES University</div>
+            <div class="exp-role">B.Tech, Computer Science &amp; Engineering · Bengaluru, KA</div>
+            <div class="exp-desc">GPA: 7.78/10 — Awarded Distinction. Secretary of IEEE CompSoc PESUECC. Technical lead at Ingenius hackathon. Member, ACM PESUECC.</div>
+          </div>
+          <div class="exp-date">2018 — 2022</div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-	<!-- Blog -->
-	<section class="fh5co-blog">
-		<div class="site-container">
-			<h2 class="universal-h2 universal-h2-bckg">Achievements & Activities</h2>
-			<div class="blog-slider blog-inner">
-				<div class="single-blog">
-					<div class="single-blog__text">
-						<h4>Awarded Distinction</h4>
-						<span>B.tech(Computer Science and Engineering), 2022</span>
-					</div>
-				</div>
-				<div class="single-blog">
-					<div class="single-blog__text">
-						<h4>Secretary, IEEE Compsoc PESUECC</h4>
-						<span>2020-present</span>
-					</div>
-				</div>
-				<div class="single-blog">
-					<div class="single-blog__text">
-						<h4>Member, ACM PESUECC</h4>
-						<span>2020-present</span>
-						
-					</div>
-				</div>
-				<div class="single-blog">
-					<div class="single-blog__text">
-						<h4>Campus Ambassador at Amigoz</h4>
-						<span>May 2020 - present</span>
-					</div>
-				</div>
-				<div class="single-blog">
-					<div class="single-blog__text">
-						<h4>Member of the tech team, Ingenius (my college's flagship event</h4>
-						<span>2020-present</span>
-					</div>
-				</div>
-				<div class="single-blog">
-					<div class="single-blog__text">
-						<h4>Vice President, Astronomy Club, DPS RK Puram</h4>
-						<span>2017 - 2018</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Blog end -->
+  <hr>
 
-	<!-- Quotes -->
-	<section class="fh5co-quotes">	
-		<div class="site-container">
-			<h1 style="color:white">Technology Stack / Skills</h1>
-			<div class="about-me-slider">
-				<div>
-					<h2 class="universal-h2 ">NodeJS/ExpressJS</h2>
-				</div>
-				<div>
-					<h2 class="universal-h2 ">ReactJS/TypeScript</h2>
-				</div>
-				<div>
-					<h2 class="universal-h2 ">Django/Flask</h2>
-				</div>
-				<div>
-					<h2 class="universal-h2">C/C++</h2>
-				</div>
-				<div>
-					<h2 class="universal-h2">Python AI/ML</h2>
-				</div>
-				<div>
-					<h2 class="universal-h2 ">PostgreSQL</h2>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Quotes end -->
+  <!-- Projects -->
+  <div class="container">
+    <section class="section fade-in" id="projects">
+      <p class="section-label">Projects</p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-icon" style="background:var(--accent-purple-bg);">🧠</div>
+          <h3>Image Classification App</h3>
+          <p>Web app with a trained ML model for real-time image classification via Django backend and React frontend.</p>
+          <div class="tech-tags"><span class="tech-tag">Django</span><span class="tech-tag">React</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Keras</span></div>
+          <div class="project-footer"><a class="project-link" href="https://github.com/vatsalsinha/imageclassification_keras_django_react_tensorflow" target="_blank">github ↗</a></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon" style="background:var(--accent-teal-bg);">🚗</div>
+          <h3>Self-Driving Car (RL)</h3>
+          <p>Autonomous vehicle simulation using reinforcement learning — agent learns navigation through trial and reward.</p>
+          <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">Reinforcement Learning</span></div>
+          <div class="project-footer"><a class="project-link" href="https://github.com/vatsalsinha/Self-Driving-Car-Implementation-using-Reinforcement-Learning" target="_blank">github ↗</a></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon" style="background:var(--accent-coral-bg);">🐦</div>
+          <h3>Twitter Clone</h3>
+          <p>Full-featured social platform with signup, login, retweet, comment, likes, and follow/unfollow.</p>
+          <div class="tech-tags"><span class="tech-tag">Django</span><span class="tech-tag">React</span><span class="tech-tag">Bootstrap</span></div>
+          <div class="project-footer"><a class="project-link" href="https://github.com/vatsalsinha/tweetmE" target="_blank">github ↗</a></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon" style="background:var(--accent-amber-bg);">🍕</div>
+          <h3>Foodie</h3>
+          <p>Food blog app where users share recipes, with an embedded YouTube player for recipe videos.</p>
+          <div class="tech-tags"><span class="tech-tag">Django</span><span class="tech-tag">React</span><span class="tech-tag">YouTube API</span></div>
+          <div class="project-footer"><a class="project-link" href="https://github.com/vatsalsinha/foodie" target="_blank">github ↗</a></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon" style="background:var(--accent-teal-bg);">📡</div>
+          <h3>Streamer</h3>
+          <p>Twitch-inspired live streaming app via RTMP. Google OAuth login and real-time stream management.</p>
+          <div class="tech-tags"><span class="tech-tag">React</span><span class="tech-tag">RTMP</span><span class="tech-tag">Google Auth</span></div>
+          <div class="project-footer"><a class="project-link" href="https://github.com/vatsalsinha" target="_blank">github ↗</a></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon" style="background:var(--accent-purple-bg);">🖼️</div>
+          <h3>Image Size Compressor</h3>
+          <p>Lightweight React app that compresses uploaded images entirely client-side, no backend needed.</p>
+          <div class="tech-tags"><span class="tech-tag">React</span></div>
+          <div class="project-footer"><a class="project-link" href="https://github.com/vatsalsinha" target="_blank">github ↗</a></div>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;text-align:center;">
+        <a href="https://github.com/vatsalsinha?tab=repositories" target="_blank" class="btn btn-light">View all on GitHub ↗</a>
+      </div>
+    </section>
+  </div>
 
-	<!-- Social -->
-	<section class="fh5co-social">
-		<div class="site-container">
-			<div class="social">
-				<h5>Let's connect!!</h5>
-				<div class="social-icons">
-					<a href="https://www.linkedin.com/in/vatsal-sinha-85a17b136/" target="_blank"><img src="./images/linkedinicon.png" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;"></a>
-					<a href="https://github.com/vatsalsinha" target="_blank"><img src="./images/githubicon.jpg" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;"></a>
-					<a href="https://www.facebook.com/vatsal.sinha.73/" target="_blank"><img src="./images/circle-cropped.png" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;" ></a>
-					<a href="https://www.instagram.com/iamvatsals/?hl=en" target="_blank"><img src="./images/circle-cropped (1).png" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;"></a>
-				</div>
-				<h5>Share it!!</h5>
-			</div>
-		</div>
-	</section>
-	<!-- Social -->
+  <hr>
 
-	<!-- Footer -->
-	<footer class="site-footer">
-		<div class="site-container">
-			<div class="footer-inner">
-				<div class="footer-info">
-					<div class="footer-info__right">
-						<h5>Get In Touch</h5>
-						<p class="footer-phone">Phone: +918294862556</p>
-						<p>Email : vatsalsinha001@gmail.com</p>
-						<p>Email#2: vatsalsinha60@gmail.com</p>
-						<div class="social-icons">
-							<a href="https://www.linkedin.com/in/vatsal-sinha-85a17b136/" target="_blank"><img src="./images/linkedinicon.png" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;"></a>
-							<a href="https://github.com/vatsalsinha" target="_blank"><img src="./images/githubicon.jpg" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;"></a>
-							<a href="https://www.facebook.com/vatsal.sinha.73/" target="_blank"><img src="./images/circle-cropped.png" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;" ></a>
-							<a href="https://www.instagram.com/iamvatsals/?hl=en" target="_blank"><img src="./images/circle-cropped (1).png" alt="social icon" style="height:45px; width:45px; border-radius: 45px; object-fit: cover;"></a>
-						</div>
-					</div>
-				</div>
-				<div class="footer-contact-form"> 
-					<h5>Contact Form</h5>
-					<form class="contact-form" action="https://formspree.io/f/mgepkdqp" method="POST">
-						<div class="contact-form__input">
-							<input type="text" name="name" placeholder="Name">
-							<input type="email" name="_replyto" placeholder="Email">
-						</div>
-						<textarea name="message"></textarea>
-						<input type="submit" name="submit" value="Send" class="submit-button">
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="footer-bottom">
-			<div class="site-container footer-bottom-inner">
-			
-			</div>
-		</div>
-	</footer>
-	<!-- Footer end -->
+  <!-- Research -->
+  <div class="container">
+    <section class="section fade-in">
+      <p class="section-label">Research</p>
+      <div class="pub-card">
+        <span class="pub-badge">Springer · 2022</span>
+        <h3>AI-Assisted College Recommendation System</h3>
+        <p>An AI-driven recommendation engine for college selection. Builds user profiles via targeted questions, maps them against web-scraped college data, and generates recommendations using novel hybrid techniques. Published in <em>Intelligent Sustainable Systems</em>, Lecture Notes in Networks and Systems, vol. 458.</p>
+        <div class="pub-authors">Vatsal Sinha, Aman Sharma, Keshav Kumar, M. Monicashree, M. L. Vandana, B. S. Vijay Krishna</div>
+        <div class="pub-doi"><a href="https://doi.org/10.1007/978-981-19-2894-911" target="_blank">doi.org/10.1007/978-981-19-2894-911 ↗</a></div>
+      </div>
+    </section>
+  </div>
 
-	<!-- Scripts -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/main.js"></script>
+  <hr>
 
+  <!-- Contact -->
+  <div class="container">
+    <section class="section fade-in" id="contact">
+      <p class="section-label">Contact</p>
+      <p style="font-size:15px;color:var(--text-muted);margin-bottom:2rem;font-weight:300;max-width:420px;">Let's connect! Whether it's a project, opportunity, or just to say hi — my inbox is always open.</p>
+      <div class="contact-grid">
+        <a href="mailto:vatsalsinha001@gmail.com" class="contact-card">
+          <div class="contact-icon">✉️</div>
+          <div><div class="contact-label">email</div><div class="contact-val">vatsalsinha001@gmail.com</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/vatsal-sinha-85a17b136/" target="_blank" class="contact-card">
+          <div class="contact-icon">💼</div>
+          <div><div class="contact-label">linkedin</div><div class="contact-val">linkedin.com/in/vatsal-sinha</div></div>
+        </a>
+        <a href="https://github.com/vatsalsinha" target="_blank" class="contact-card">
+          <div class="contact-icon">⌨️</div>
+          <div><div class="contact-label">github</div><div class="contact-val">github.com/vatsalsinha</div></div>
+        </a>
+        <a href="https://leetcode.com/vatsalsinha/" target="_blank" class="contact-card">
+          <div class="contact-icon">🏆</div>
+          <div><div class="contact-label">leetcode</div><div class="contact-val">leetcode.com/vatsalsinha</div></div>
+        </a>
+        <a href="https://vatsalsinha59.medium.com/" target="_blank" class="contact-card">
+          <div class="contact-icon">✍️</div>
+          <div><div class="contact-label">blog</div><div class="contact-val">vatsalsinha59.medium.com</div></div>
+        </a>
+        <a href="https://www.instagram.com/iamvatsals/" target="_blank" class="contact-card">
+          <div class="contact-icon">📷</div>
+          <div><div class="contact-label">instagram</div><div class="contact-val">@iamvatsals</div></div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>Vatsal Sinha · 2026 · Built with HTML, CSS &amp; care</footer>
+
+  <script>
+    // ── Theme toggle ──
+    const html = document.documentElement;
+    const toggleBtns = [
+      document.getElementById('theme-toggle'),
+      document.getElementById('theme-toggle-mobile')
+    ];
+    const thumbs = [
+      document.getElementById('toggle-thumb'),
+      document.getElementById('toggle-thumb-mobile')
+    ];
+
+    function setTheme(dark) {
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+      thumbs.forEach(t => { if (t) t.textContent = dark ? '🌙' : '☀️'; });
+      try { localStorage.setItem('vs-theme', dark ? 'dark' : 'light'); } catch(e) {}
+    }
+
+    function toggleTheme() {
+      setTheme(html.getAttribute('data-theme') !== 'dark');
+    }
+
+    toggleBtns.forEach(btn => { if (btn) btn.addEventListener('click', toggleTheme); });
+
+    // Init: saved preference > system preference
+    let saved;
+    try { saved = localStorage.getItem('vs-theme'); } catch(e) {}
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(saved ? saved === 'dark' : prefersDark);
+
+    // ── Mobile drawer ──
+    const burgerBtn = document.getElementById('burger-btn');
+    const drawer    = document.getElementById('mobile-drawer');
+
+    burgerBtn.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      burgerBtn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      burgerBtn.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── Scroll fade-in ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.07 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
